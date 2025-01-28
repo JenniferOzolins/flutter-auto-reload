@@ -5,7 +5,7 @@ repository: "https://github.com/surfstudio/flutter-auto-reload/"
 issue_tracker: "https://github.com/surfstudio/flutter-auto-reload/issues"
 
 dependencies:
-  connectivity_plus: ^2.2.1
+  connectivity_plus: ^6.1.2
   flutter:
     sdk: flutter
 
@@ -14,7 +14,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^5.0.0
-  surf_lint_rules: ^1.0.0
+  surf_lint_rules: ^3.1.0
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

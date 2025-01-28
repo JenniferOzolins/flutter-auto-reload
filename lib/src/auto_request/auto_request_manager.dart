@@ -45,7 +45,7 @@ class AutoRequestManager implements AutoFutureManager {
 
   late int _currentReloadDuration;
 
-  StreamSubscription<ConnectivityResult>? _connectivitySubscription;
+  StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
 
   Timer? _requestTimer;
 
@@ -80,7 +80,7 @@ class AutoRequestManager implements AutoFutureManager {
         _connectivity.onConnectivityChanged.listen(_reloadRequest);
   }
 
-  void _reloadRequest(ConnectivityResult connection) {
+  void _reloadRequest(List<ConnectivityResult> connection) {
     if (!_needToReload(connection) || _requestTimer != null) {
       return;
     }
@@ -124,27 +124,30 @@ class AutoRequestManager implements AutoFutureManager {
   }
 
   Future<void> _handleItemQueue(String key) async {
-    final _queueValue = _queue.remove(key);
-    if (_queueValue != null) {
-      await _queueValue();
+    final queueValue = _queue.remove(key);
+    if (queueValue != null) {
+      await queueValue();
     }
 
-    final _callbacksValue = _callbacks.remove(key);
-    if (_callbacksValue != null) {
-      _callbacksValue(key);
+    final callbacksValue = _callbacks.remove(key);
+    if (callbacksValue != null) {
+      callbacksValue(key);
     }
   }
 
-  bool _needToReload(ConnectivityResult connection) =>
+  bool _needToReload(List<ConnectivityResult> connection) =>
       _haveConnection(connection);
 
-  bool _haveConnection(ConnectivityResult connection) {
-    switch (connection) {
-      case ConnectivityResult.wifi:
-      case ConnectivityResult.mobile:
-        return true;
-      default:
-        return false;
+  bool _haveConnection(List<ConnectivityResult> connections) {
+    for (final connection in connections) {
+      switch (connection) {
+        case ConnectivityResult.wifi:
+        case ConnectivityResult.mobile:
+          return true;
+        default:
+          return false;
+      }
     }
+    return false;
   }
 }

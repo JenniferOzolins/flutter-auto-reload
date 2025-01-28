@@ -20,10 +20,10 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 class DemoAutoRequestManager extends StatefulWidget {
-  const DemoAutoRequestManager({Key? key}) : super(key: key);
+  const DemoAutoRequestManager({super.key});
 
   @override
-  _DemoAutoRequestManagerState createState() => _DemoAutoRequestManagerState();
+  State<DemoAutoRequestManager> createState() => _DemoAutoRequestManagerState();
 }
 
 class _DemoAutoRequestManagerState extends State<DemoAutoRequestManager> {
